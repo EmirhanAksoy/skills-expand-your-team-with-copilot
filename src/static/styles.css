@@ -30,6 +30,10 @@
   --error-light: #ffebee;
   --info: #0c5460;
   --info-light: #d1ecf1;
+
+  /* Header button */
+  --header-button-bg: rgba(255, 255, 255, 0.2);
+  --header-button-hover-bg: rgba(255, 255, 255, 0.3);
 }
 
 /* Dark mode overrides */
@@ -45,11 +49,13 @@
   --warning-light: #3a2e00;
   --error-light: #3a0f0f;
   --info-light: #0a2a30;
+  --header-button-bg: rgba(255, 255, 255, 0.15);
+  --header-button-hover-bg: rgba(255, 255, 255, 0.25);
 }
 
 /* Dark mode toggle button */
 #dark-mode-toggle {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: var(--header-button-bg);
   border: none;
   border-radius: 20px;
   padding: 4px 10px;
@@ -60,7 +66,7 @@
 }
 
 #dark-mode-toggle:hover {
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: var(--header-button-hover-bg);
 }
 
 * {
