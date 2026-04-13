@@ -569,6 +569,14 @@ document.addEventListener("DOMContentLoaded", () => {
         `
         }
       </div>
+      <div class="share-section">
+        <span class="share-label">Share:</span>
+        <div class="share-buttons">
+          <a class="share-btn share-twitter" href="#" aria-label="Share on Twitter/X" title="Share on Twitter/X" data-activity="${name}">𝕏</a>
+          <a class="share-btn share-whatsapp" href="#" aria-label="Share on WhatsApp" title="Share on WhatsApp" data-activity="${name}">💬</a>
+          <button class="share-btn share-copy" aria-label="Copy link" title="Copy link" data-activity="${name}">🔗</button>
+        </div>
+      </div>
     `;
 
     // Add click handlers for delete buttons
@@ -586,6 +594,43 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       }
     }
+
+    // Add click handlers for share buttons
+    const shareUrl = `${window.location.origin}${window.location.pathname}#${encodeURIComponent(name)}`;
+    const shareText = `Check out "${name}" at Mergington High School! ${details.description}`;
+
+    const twitterBtn = activityCard.querySelector(".share-twitter");
+    twitterBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.open(
+        `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`,
+        "_blank",
+        "noopener,noreferrer"
+      );
+    });
+
+    const whatsappBtn = activityCard.querySelector(".share-whatsapp");
+    whatsappBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.open(
+        `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText + " " + shareUrl)}`,
+        "_blank",
+        "noopener,noreferrer"
+      );
+    });
+
+    const copyBtn = activityCard.querySelector(".share-copy");
+    copyBtn.addEventListener("click", () => {
+      navigator.clipboard.writeText(shareUrl).then(() => {
+        const original = copyBtn.textContent;
+        copyBtn.textContent = "✅";
+        setTimeout(() => {
+          copyBtn.textContent = original;
+        }, 2000);
+      }).catch(() => {
+        showMessage("Could not copy link. Please copy it manually: " + shareUrl, "info");
+      });
+    });
 
     activitiesList.appendChild(activityCard);
   }
